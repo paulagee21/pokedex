@@ -1,0 +1,60 @@
+$border-color: #EEEEEE;
+
+table 
+    width: 100%;
+    font-family: 'Montserrat';
+
+table tr 
+
+    td
+        padding: 20px 15px;
+        font-size: 16px;
+        font-weight: normal;
+        text-transform: uppercase;
+        color: #686868;
+
+    td[class="id"]
+        width: 70px;
+        text-align: center;
+        border-right: 1px solid $border-color;
+
+    td[class="type"]
+        position: relative;
+        padding: 0 0;
+        width: 10px;
+        height: 100%;
+
+        div
+            position: absolute;
+            display: inline;
+            background-color: green;
+            height: 40%;
+            width: 100%;
+        
+        div:first-child
+            top: 1px;
+
+        div:first-child::after
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-top: 9px solid green;
+            border-left: 10px solid transparent;
+            content: '';
+            bottom: -9px;
+            
+        div:last-child::before
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-bottom: 9px solid green;
+            border-right: 10px solid transparent;
+            content: '';
+            top: -9px;
+
+        div:last-child
+            bottom: 1px;
+
+
+table tr:not(last-of-type)
+    border-bottom: 1px solid $border-color; 

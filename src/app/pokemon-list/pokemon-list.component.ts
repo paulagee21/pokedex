@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { PokemonDataService } from '../pokemon-data.service';
+import { Pokemon } from '../pokemon';
 
 @Component({
   selector: 'app-pokemon-list',
@@ -8,11 +9,12 @@ import { PokemonDataService } from '../pokemon-data.service';
 })
 export class PokemonListComponent implements OnInit {
 
-  constructor(private _data: PokemonDataService) { 
-    this._data.getAllPokemon();
-  }
-
   ngOnInit() {
   }
 
+  @Input()
+  pokemon: Pokemon[];
+
+  @Output('pokemon')
+  pokemonEmitter = new EventEmitter<Pokemon>();
 }
