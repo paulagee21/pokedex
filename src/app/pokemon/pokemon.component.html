@@ -21,9 +21,7 @@
 </div>
 <div class="pokemon-info">
   <tabset>
-    <tab heading="stats" id="tab1">Basic content</tab>
-    <tab heading="moves">Basic content 1</tab>
-    <tab heading="location">Basic content 2</tab>
+    <tab *ngFor="let tab of tabs" [heading]="tab.title" [customClass]=type>Basic content</tab>
   </tabset>
 </div>
 

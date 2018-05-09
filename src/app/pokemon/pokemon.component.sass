@@ -1,3 +1,4 @@
+@import '../../variables.sass';
 .pokemon-main 
     padding: 20px 10px 0 10px;
     color: #777;
@@ -39,3 +40,25 @@
 .row 
     margin: 0;
     border-bottom: 2px solid #cfcfcf;
+
+::ng-deep .nav-tabs
+    border-bottom: none;
+
+    .nav-link.active
+        color: #fff;
+
+    .nav-link
+        min-width: 150px;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+        text-align: center;
+
+    li:first-of-type .nav-link
+        border-bottom-left-radius: 50%;
+
+    li:last-of-type .nav-link
+        border-bottom-right-radius: 50%;
+
+@each $type in $types
+    ::ng-deep li.#{nth($type, 1)} .nav-link.active
+        background-color: nth($type, 2);

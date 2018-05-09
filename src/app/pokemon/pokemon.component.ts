@@ -15,6 +15,17 @@ export class PokemonComponent implements OnInit {
 
   public pokemon$: Observable<Pokemon>;
   public type: String;
+  public tabs: any[] = [
+      {
+        title: 'stats'
+      },
+      {
+        title: 'moves'
+      },
+      {
+        title: 'location'
+      }
+  ];
 
   constructor(private activeRoute: ActivatedRoute, private pokemonService: PokemonDataService) { }
 
