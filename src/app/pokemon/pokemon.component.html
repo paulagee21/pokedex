@@ -1,0 +1,29 @@
+<app-pokenav [pokemon]="pokemon$?.name" [class]="type"></app-pokenav>
+<div class="pokemon-main">
+  <div class="row">
+    <table class="table">
+      <tbody>
+        <tr>
+          <td rowspan="2">
+            <img src="{{ pokemon$?.sprites.front_default }}" >
+            <p>{{ pokemon$?.id }}</p>
+          </td>
+          <td>{{ pokemon$?.species }}<span class="subtext">species</span></td>
+          <td>{{ pokemon$?.height/10 }}m<span class="subtext">height</span></td>
+          <td>{{ pokemon$?.weight/10 }}kg<span class="subtext">weight</span></td>
+        </tr>
+        <tr>
+          <td colspan="3"><p class="description">{{ pokemon$?.description }}</p></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="pokemon-info">
+  <tabset>
+    <tab heading="stats" id="tab1">Basic content</tab>
+    <tab heading="moves">Basic content 1</tab>
+    <tab heading="location">Basic content 2</tab>
+  </tabset>
+</div>
+

@@ -7,8 +7,6 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 
-import { Pokemon } from './pokemon';
-
 const API_URL = environment.apiUrl;
 
 @Injectable()
@@ -32,7 +30,8 @@ export class PokemonDataService {
           this.getType(pokemon.name).subscribe(
             (types) => {
               pokemonList.results[index].id = types[0];
-              pokemonList.results[index].types = types[1];
+              types.splice(0,1)
+              pokemonList.results[index].types = types;
             }
           );
         });
@@ -46,7 +45,21 @@ export class PokemonDataService {
       .get(API_URL + '/pokemon/' + name +'/')
       .map(data => {
         const pokemon = data.json();
-        return pokemon.results;
+        this.getSpecies(pokemon.name).subscribe(
+          (species) => {
+            species.flavor_text_entries.forEach((flavor_text) => {
+              if (flavor_text.language.name == 'en') {
+                pokemon.description = flavor_text.flavor_text;
+              }
+            });
+            species.genera.forEach((value, index) => {
+              if (value.language.name == 'en') {
+                pokemon.species = value.genus.split(" ")[0];
+              }
+            });
+          }
+        )
+        return pokemon;
       })
     //get pokemon by name
   }
@@ -64,6 +77,16 @@ export class PokemonDataService {
         });
         return types;
       })
+  }
+
+  public getSpecies(name) {
+    return this.http
+      .get(API_URL + '/pokemon-species/' + name + '/')
+      .map(data => {
+        const species = data.json();
+        return species;
+      })
+
   }
 
   public getEvolution() {

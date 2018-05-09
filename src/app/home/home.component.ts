@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 
 import { PokemonDataService } from '../pokemon-data.service';
-import { Pokemon } from '../pokemon';
 
 @Component({
   selector: 'app-home',
@@ -11,17 +10,16 @@ import { Pokemon } from '../pokemon';
 })
 export class HomeComponent implements OnInit {
 
-  public pokemon$: Observable<Pokemon[]>
+  public pokemons$: Observable<any[]>
 
-  constructor(private pokemonService: PokemonDataService) { 
-  }
+  constructor(private pokemonService: PokemonDataService) { }
 
   public ngOnInit() {
     this.pokemonService
       .getAllPokemon()
       .subscribe(
-        (pokemon) => {
-          this.pokemon$ = pokemon;
+        (pokemonList) => {
+          this.pokemons$ = pokemonList;
         }
       );
   }

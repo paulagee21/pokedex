@@ -1,14 +1,17 @@
 <table>
   <tr>
     <td class="type">
-      <div></div>
-      <div></div>
+      <div class="grass"></div>
+      <div class="poison"></div>
     </td>
     <td class="id">test</td>
     <td>test</td>
   </tr>
-  <tr *ngFor="let p of pokemon">
-    <td class="type"></td>
+  <tr *ngFor="let p of pokemons" [routerLink]="['pokemon', p.name]">
+    <td class="type">
+      <div *ngFor="let type of p.types" [ngClass]="type">
+      </div>
+    </td>
     <td class="id">{{ p.id }}</td>
     <td>{{ p.name }}</td>
   </tr>

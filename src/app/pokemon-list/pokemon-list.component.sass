@@ -1,10 +1,25 @@
+@import '../../styles.sass';
 $border-color: #EEEEEE;
+
+@mixin type-borders-after($type) 
+    border-top: 9px solid $type;
+    border-left: 10px solid transparent;
+    bottom: -9px;
+
+@mixin type-borders-before($type) 
+    border-bottom: 9px solid $type;
+    border-right: 10px solid transparent;
+    top: -9px;
+
+@mixin only-child($type)
+    border-left: 10px solid $type;
 
 table 
     width: 100%;
     font-family: 'Montserrat';
 
 table tr 
+    cursor: pointer;
 
     td
         padding: 20px 15px;
@@ -24,37 +39,44 @@ table tr
         width: 10px;
         height: 100%;
 
-        div
-            position: absolute;
-            display: inline;
-            background-color: green;
-            height: 40%;
-            width: 100%;
-        
         div:first-child
             top: 1px;
-
-        div:first-child::after
-            position: absolute;
-            width: 0;
-            height: 0;
-            border-top: 9px solid green;
-            border-left: 10px solid transparent;
-            content: '';
-            bottom: -9px;
-            
-        div:last-child::before
-            position: absolute;
-            width: 0;
-            height: 0;
-            border-bottom: 9px solid green;
-            border-right: 10px solid transparent;
-            content: '';
-            top: -9px;
 
         div:last-child
             bottom: 1px;
 
+        div
+            position: absolute;
+            display: inline;
+            height: 99%;
+            width: 100%;
+
+        div:not(:only-child)
+            height: 40%;
+        
+        .child-elems
+            position: absolute;
+            width: 0;
+            height: 0;
+            content: '';
+
+        @each $type in $types 
+            div.#{nth($type, 1)} 
+               background-color: nth($type, 2); 
+
+            div.#{nth($type, 1)}:first-child:not(:only-child)::after
+                @extend .child-elems;
+                @include type-borders-after(nth($type, 2));
+                
+            div.#{nth($type, 1)}:last-child:not(:only-child)::before
+                @extend .child-elems;
+                @include type-borders-before(nth($type, 2));
 
 table tr:not(last-of-type)
     border-bottom: 1px solid $border-color; 
+
+table tr:hover
+    background-color: #F7F7F7;
+
+    td
+        font-weight: bold;
