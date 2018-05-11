@@ -21,7 +21,25 @@
 </div>
 <div class="pokemon-info">
   <tabset>
-    <tab *ngFor="let tab of tabs" [heading]="tab.title" [customClass]=type>Basic content</tab>
+    <tab heading="stats" [customClass]=type>
+      stats
+    </tab>
+    <tab heading="moves" [customClass]=type>
+      moves
+    </tab>
+    <tab heading="locations" [customClass]=type>
+      locations
+    </tab>
   </tabset>
 </div>
-
+<div class="pokemon-evolution {{ type }}">
+  <div class="heading">evolution</div>
+    <div class="chain">
+        <div>
+          <span *ngFor="let stage of pokemon$?.evolution; let i = index" class="col-xs-4 stage">
+            <span *ngIf="i != 0"><span *ngIf="stage.trigger_condition == 'level-up'">LVL</span><span class="trigger">{{ stage.trigger_val }}</span></span>
+            <img src="{{ stage.sprites.front_default }}">
+          </span>
+        </div>
+    </div>
+</div>
